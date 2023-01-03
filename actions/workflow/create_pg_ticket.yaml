@@ -1,0 +1,47 @@
+version: 1.0
+
+description: A basic sequential workflow.
+
+input:
+  - summary
+  - type
+  - description
+  - project
+  - extra_fields
+
+tasks:
+  notify:
+    action: core.echo
+    input:
+      message: |
+        Received pagerduty WebHook.
+    next:
+      - when: <% succeeded() %>
+        # publish:
+        #   - server_id: <% result().output.server_id %>
+        do: create_jira_ticket
+
+  create_jira_ticket:
+    action: jira.create_issue
+    input:
+        <% ctx().summary %>
+        <% ctx().type %>
+        <% ctx().description %>
+        <% ctx().project %>
+        <% ctx().extra_fields %>
+    next:
+      - when: <% succeeded() %>
+        # publish:
+        #   - server_id: <% result().output.server_id %>
+        do: update_pg_ticket
+
+  update_pg_ticket:
+  notify:
+    action: core.echo
+    input:
+      message: "Updated pg ticket"
+
+  close_alerts:
+    action: core.echo
+    input:
+      message: "Closing alerts"

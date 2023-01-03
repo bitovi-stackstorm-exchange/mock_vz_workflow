@@ -1,0 +1,20 @@
+---
+name: mock_vz_workflow
+pack: mock_vz_workflow
+description: Testing pagerduty ticket creation
+enabled: true
+
+trigger:
+  type: "core.st2.webhook"
+  parameters:
+    url: "vz-pack-training-internal"
+
+criteria:
+  trigger.body.webhookEvent: 
+    type: regex
+    pattern: "pagerduty:issue_(created|updated)"
+
+action:
+  ref: mock_pagerduty.create_ticket
+  parameters:
+    parameter_body: "{{ trigger }}"

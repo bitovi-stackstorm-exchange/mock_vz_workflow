@@ -1,0 +1,14 @@
+---
+ref: mock_vz_workflow
+name: mock_vz_workflow
+description: Workflow to create Jira Tickets and Pagerduty duty tickets
+version: 1.0.0
+python_versions:
+  - "3"
+author: Bitovi
+email: karamveer@bitovi.com
+contributors:
+  - karamveer@bitovi.com
+dependencies:
+  - https://github.com/StackStorm-Exchange/stackstorm-jira.git
+

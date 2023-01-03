@@ -1,0 +1,5 @@
+---
+pagerduty_request:
+  description: "Pagerduty request"
+  default: "pagerduty-ticket-created"
+  type: "string"
