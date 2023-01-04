@@ -1,6 +1,6 @@
 ---
 name: create_ticket
-pack: mock_pagerduty
+pack: mock_vz_workflow
 description: Create pagerduty tickets
 runner_type: orquesta
 entry_point: workflow/create_pg_ticket.yaml
