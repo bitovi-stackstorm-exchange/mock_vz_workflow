@@ -9,12 +9,15 @@ input:
   - project
   - extra_fields
 
+vars:
+  - pagerduty: pagerduty_ticket_created
+
 tasks:
   create_pg_ticket:
-    action: core.echo
-    input:
-      message: |
-        Received pagerduty WebHook.
+    action: core.echo message=<% ctx().pagerduty %>
+    # input:
+    #   message: |
+    #     Received pagerduty WebHook.
     next:
       - when: <% succeeded() %>
         # publish:
@@ -24,11 +27,11 @@ tasks:
   create_jira_ticket:
     action: jira.create_issue
     input:
-        <% ctx().summary %>
-        <% ctx().type %>
-        <% ctx().description %>
-        <% ctx().project %>
-        <% ctx().extra_fields %>
+      summary: <% ctx().summary %>
+      type: <% ctx().type %>
+      description: <% ctx().description %>
+      project: <% ctx().project %>
+      extra_fields: <% ctx().extra_fields %>
     next:
       - when: <% succeeded() %>
         # publish:
