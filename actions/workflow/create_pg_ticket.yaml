@@ -10,7 +10,7 @@ input:
   - extra_fields
 
 tasks:
-  notify:
+  create_pg_ticket:
     action: core.echo
     input:
       message: |
@@ -36,7 +36,6 @@ tasks:
         do: update_pg_ticket
 
   update_pg_ticket:
-  notify:
     action: core.echo
     input:
       message: "Updated pg ticket"
